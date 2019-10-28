@@ -41,7 +41,7 @@ noremap <leader>nr :NERDTreeRefreshRoot<CR>
 "tabnine 配置==========================
 "let g:airline_theme="solarized"
 "let g:airline_solarized_bg='dark'
-let g:airline_theme="violet"
+let g:airline_theme="molokai"
 "end tabnine 配置==========================
 
 
