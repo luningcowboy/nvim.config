@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree' " 文件管理
-Plug 'zxqfl/tabnine-vim' " 代码提示
+"Plug 'zxqfl/tabnine-vim' " 代码提示
 Plug 'vim-airline/vim-airline' " 状态栏增强
 Plug 'vim-airline/vim-airline-themes'
 Plug '/usr/local/opt/fzf' "fzf依赖
@@ -9,11 +9,23 @@ Plug 'easymotion/vim-easymotion' "光标快速移动
 Plug 'Yggdroot/LeaderF' "文件查找
 Plug 'Chiel92/vim-autoformat' "自动格式化代码
 Plug 'ctrlpvim/ctrlp.vim' "ctrlp
+" 代码提示
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Markdown预览
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " 运行命令，类似:!<cmd>, 但是会将命令和结果放到一个窗口
 " :T <CMD>
 Plug 'kassio/neoterm'
+"gruvbox
+Plug 'morhetz/gruvbox'
+"tagbar
+Plug 'majutsushi/tagbar'
+function! BuildYCM(info)
+  if a:info.status == 'installed' || a:info.force
+    !./install.py --clang-completer --js-completer
+  endif
+endfunction
+Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
 call plug#end()
 
 "设置<leader>
@@ -72,6 +84,15 @@ noremap <leader>ms :MarkdownPreviewStop<CR>
 "noremap <leader>mt :MarkdownPreviewToggle<CR>
 "end MarkdownPreview 配置==========================
 
+"deoplete
+"use deoplete
+let g:deoplete#enable_at_startup = 1
+"end deoplete
+
+"tagbar
+nmap <leader>tb :Tagbar<CR>
+"end tagbar
+
 "必要的配置
 set tabstop=4
 set shiftwidth=4
@@ -90,3 +111,8 @@ let g:python3_host_prog='/usr/local/bin/python3'
 "往系统剪切版里拷贝，从系统剪切版里粘贴
 noremap <leader>y "+y
 noremap <leader>p "+p
+set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽
+
+"使用gruvbox主题
+colorscheme gruvbox
+set background=dark
