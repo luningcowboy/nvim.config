@@ -26,6 +26,8 @@ function! BuildYCM(info)
   endif
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
+Plug 'marijnh/tern_for_vim'
+Plug 'scrooloose/nerdcommenter'
 call plug#end()
 
 "设置<leader>
@@ -76,12 +78,8 @@ noremap fmt :Autoformat<CR>
 "end autoformat配置=====================
 
 "MarkdownPreview 配置==========================
-"<Plug>MarkdownPreview
-"<Plug>MarkdownPreviewStop
-"<Plug>markdownPreviewToggle
 noremap <leader>mp :MarkdownPreview<CR>
 noremap <leader>ms :MarkdownPreviewStop<CR>
-"noremap <leader>mt :MarkdownPreviewToggle<CR>
 "end MarkdownPreview 配置==========================
 
 "deoplete
@@ -93,6 +91,27 @@ let g:deoplete#enable_at_startup = 1
 nmap <leader>tb :Tagbar<CR>
 "end tagbar
 
+"ycm
+let g:airline#extensions#ycm#enabled = 1
+let g:airline#extensions#ycm#error_symbol = 'E:'
+let g:airline#extensions#ycm#warning_symbol = 'W:'
+let g:ycm_min_num_of_chars_for_completion = 3 
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_complete_in_comments = 1
+let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
+" 比较喜欢用tab来选择补全...
+function! MyTabFunction ()
+    let line = getline('.')
+    let substr = strpart(line, -1, col('.')+1)
+    let substr = matchstr(substr, "[^ \t]*$")
+    if strlen(substr) == 0
+        return "\<tab>"
+    endif
+    return pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>"
+endfunction
+inoremap <tab> <c-r>=MyTabFunction()<cr>
+"end ycm
 "必要的配置
 set tabstop=4
 set shiftwidth=4
@@ -116,3 +135,53 @@ set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽
 "使用gruvbox主题
 colorscheme gruvbox
 set background=dark
+
+" 注释
+autocmd BufNewFile *.c,*.cpp,*.sh,*.py,*.java,*.js exec ":call SetTitle()"                                                                                       
+"定义函数SetTitle，自动插入文件头
+func SetTitle()
+        "如果文件类型为.c或者.cpp文件
+        if (&filetype == 'c' || &filetype == 'cpp' || &filetype == 'js')
+                call setline(1, "/*************************************************************************")  
+                call setline(2, "\ @Author: luning")  
+                call setline(3, "\ @Created Time : ".strftime("%c"))  
+                call setline(4, "\ @File Name: ".expand("%"))  
+                call setline(5, "\ @Description:")  
+                call setline(6, " ************************************************************************/")  
+                call setline(7,"")  
+        endif
+        "如果文件类型为.sh文件
+        if &filetype == 'shell'  
+                call setline(1, "\#!/bin/sh")
+                call setline(2, "\# Author: luning")
+                call setline(3, "\# Created Time : ".strftime("%c"))
+                call setline(4, "\# File Name: ".expand("%"))
+                call setline(5, "\# Description:")
+                call setline(6,"")
+        endif
+        "如果文件类型为.py文件
+        if &filetype == 'python'
+                call setline(1, "\#!/usr/bin/env python")
+                call setline(2, "\# -*- coding=utf8 -*-")
+                call setline(3, "\"\"\"")
+                call setline(4, "\# Author: luning")
+                call setline(5, "\# Created Time : ".strftime("%c"))
+                call setline(6, "\# File Name: ".expand("%"))
+                call setline(7, "\# Description:")
+                call setline(8, "\"\"\"")
+                call setline(9,"")
+        endif
+        "如果文件类型为.java文件
+        if &filetype == 'java'  
+                call setline(1, "//coding=utf8")  
+                call setline(2, "/**")  
+                call setline(3, "\ *\ @Author: luning")  
+                call setline(4, "\ *\ @Created Time : ".strftime("%c"))  
+                call setline(5, "\ *\ @File Name: ".expand("%"))  
+                call setline(6, "\ *\ @Description:")  
+                call setline(7, "\ */")  
+                call setline(8,"")  
+        endif
+endfunc
+" 自动将光标移动到文件末尾
+autocmd BufNewfile * normal G
