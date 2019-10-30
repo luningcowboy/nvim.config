@@ -136,6 +136,9 @@ set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽
 colorscheme gruvbox
 set background=dark
 
+" 格式化json
+noremap <leader>js <ESC>:%!python3 -m json.tool<CR>
+
 " 注释
 autocmd BufNewFile *.c,*.cpp,*.sh,*.py,*.java,*.js exec ":call SetTitle()"                                                                                       
 "定义函数SetTitle，自动插入文件头
