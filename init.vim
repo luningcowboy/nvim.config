@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree' " 文件管理
-"Plug 'zxqfl/tabnine-vim' " 代码提示
+"Plug 'zxqfl/tabnine-vim' " OpenAI代码提示
 Plug 'vim-airline/vim-airline' " 状态栏增强
 Plug 'vim-airline/vim-airline-themes'
 Plug '/usr/local/opt/fzf' "fzf依赖
@@ -27,7 +27,14 @@ function! BuildYCM(info)
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
 Plug 'marijnh/tern_for_vim'
+" 注释与反注释插件
 Plug 'scrooloose/nerdcommenter'
+" 生成代码截图插件,很漂亮
+"Plug 'kristijanhusak/vim-carbon-now-sh'
+" 生成代码图片
+"noremap <leader>cn :CarbonNowSh<CR>
+" 代码片段
+Plug 'SirVer/ultisnips'
 call plug#end()
 
 "设置<leader>
@@ -135,12 +142,14 @@ set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽
 "使用gruvbox主题
 colorscheme gruvbox
 set background=dark
+set guioptions=
+set guifont=Monaco:h17
 
 " 格式化json
 noremap <leader>js <ESC>:%!python3 -m json.tool<CR>
 
 " 注释
-autocmd BufNewFile *.c,*.cpp,*.sh,*.py,*.java,*.js exec ":call SetTitle()"                                                                                       
+autocmd BufNewFile *.c,*.cpp,*.sh,*.py,*.java,*.js exec ":call SetTitle()"
 "定义函数SetTitle，自动插入文件头
 func SetTitle()
         "如果文件类型为.c或者.cpp文件
