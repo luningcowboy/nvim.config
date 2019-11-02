@@ -8,7 +8,7 @@ Plug 'junegunn/fzf.vim' "搜索打开,文件搜索
 Plug 'easymotion/vim-easymotion' "光标快速移动
 Plug 'Yggdroot/LeaderF' "文件查找
 Plug 'Chiel92/vim-autoformat' "自动格式化代码
-Plug 'ctrlpvim/ctrlp.vim' "ctrlp
+"Plug 'ctrlpvim/ctrlp.vim' "ctrlp
 " 代码提示
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Markdown预览
@@ -34,7 +34,21 @@ Plug 'scrooloose/nerdcommenter'
 " 生成代码图片
 "noremap <leader>cn :CarbonNowSh<CR>
 " 代码片段
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
+Plug 'roxma/vim-tmux-clipboard'
+" start语言提示插件
+Plug 'sheerun/vim-polyglot'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'vim-jp/vim-cpp'
+Plug 'pboettch/vim-cmake-syntax'
+Plug 'tikhomirov/vim-glsl'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'plasticboy/vim-markdown'
+Plug 'vim-python/python-syntax'
+" end
+Plug 'pangloss/vim-javascript'
+Plug 'maksimr/vim-jsbeautify'
 call plug#end()
 
 "设置<leader>
@@ -44,16 +58,16 @@ let mapleader=","
 "设置 F2 为NERDTree的快捷键
 map <leader>nt :NERDTreeToggle<CR>
 "修改文件树的展示图标
-let g:NERDTreeDirArrowExpandable="+"
-let g:NERDTreeDirArrowCollapsible="-"
+let g:NERDTreeDirArrowExpandable="►"
+let g:NERDTreeDirArrowCollapsible="▽"
 "设置文件树的展示位置
 let g:NERDTreeWinPro="right"
 "设置文件树的窗口尺寸
-let g:NERDTreeSize=30
+let g:NERDTreeSize=31
 "是否显示行号
 let g:NERDTreeShowLineNumbers=1
 "是否展示隐藏文件
-let g:NERDTreeHidden=0
+let g:NERDTreeShowHidden=1
 "刷新文件目录
 noremap <leader>nr :NERDTreeRefreshRoot<CR>
 "end nerdtree配置========================
@@ -119,6 +133,11 @@ function! MyTabFunction ()
 endfunction
 inoremap <tab> <c-r>=MyTabFunction()<cr>
 "end ycm
+
+" pangloss/vim-javascript
+let g:javascript_plugin_jsdoc = 1
+" end pangloss/vim-javascript
+
 "必要的配置
 set tabstop=4
 set shiftwidth=4
@@ -197,3 +216,4 @@ func SetTitle()
 endfunc
 " 自动将光标移动到文件末尾
 autocmd BufNewfile * normal G
+
