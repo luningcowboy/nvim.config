@@ -44,11 +44,12 @@ Plug 'pboettch/vim-cmake-syntax'
 Plug 'tikhomirov/vim-glsl'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'plasticboy/vim-markdown'
+"Plug 'plasticboy/vim-markdown'
 Plug 'vim-python/python-syntax'
 " end
 Plug 'pangloss/vim-javascript'
 Plug 'maksimr/vim-jsbeautify'
+Plug 'vim-scripts/LargeFile'
 call plug#end()
 
 "设置<leader>
