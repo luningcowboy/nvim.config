@@ -217,4 +217,10 @@ func SetTitle()
 endfunc
 " 自动将光标移动到文件末尾
 autocmd BufNewfile * normal G
+nnoremap <space> viw
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lev
+"打开vim配置文件，并分屏编辑
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+"保存vim配置文件
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
