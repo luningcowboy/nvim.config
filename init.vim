@@ -50,6 +50,7 @@ Plug 'vim-python/python-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'vim-scripts/LargeFile'
+Plug 'yianwillis/vimcdoc'
 call plug#end()
 
 "设置<leader>
@@ -72,7 +73,6 @@ let g:NERDTreeShowHidden=1
 "刷新文件目录
 noremap <leader>nr :NERDTreeRefreshRoot<CR>
 "end nerdtree配置========================
-
 
 "tabnine 配置==========================
 "let g:airline_theme="solarized"
@@ -223,4 +223,13 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lev
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 "保存vim配置文件
 nnoremap <leader>sv :source $MYVIMRC<cr>
-
+"切换窗口
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+"注释一行
+"Plug 'scrooloose/nerdcommenter' 这个插件已经有这个功能了<leader>cc
+"autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+"autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>
+"autocmd FileType cpp nnoremap <buffer> <localleader>c I#<esc>
