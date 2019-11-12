@@ -233,3 +233,5 @@ nnoremap <leader>4 4gt
 "autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
 "autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>
 "autocmd FileType cpp nnoremap <buffer> <localleader>c I#<esc>
+"快速复制光标所在的单词
+nnoremap <leader>qy viw"+y
