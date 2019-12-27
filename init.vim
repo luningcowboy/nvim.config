@@ -20,12 +20,13 @@ Plug 'kassio/neoterm'
 Plug 'morhetz/gruvbox'
 "tagbar
 Plug 'majutsushi/tagbar'
-function! BuildYCM(info)
-  if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer --js-completer
-  endif
-endfunction
-Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
+
+" function! BuildYCM(info)
+"   if a:info.status == 'installed' || a:info.force
+"     !./install.py --clang-completer --js-completer
+"   endif
+" endfunction
+" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
 Plug 'marijnh/tern_for_vim'
 " 注释与反注释插件
 Plug 'scrooloose/nerdcommenter'
@@ -51,10 +52,66 @@ Plug 'pangloss/vim-javascript'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'vim-scripts/LargeFile'
 Plug 'yianwillis/vimcdoc'
+" Plug 'neoclide/coc.vim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 "设置<leader>
 let mapleader=","
+" coc.nvim
+set updatetime=300
+augroup coc_config
+  au!
+  "au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  "au CursorHold * sil call CocActionAsync('highlight')
+  "au CursorHoldI * sil call CocActionAsync('showSignatureHelp')
+augroup END
+nmap <silent> <M-j> <Plug>(coc-definition)
+nmap <silent> <C-,> <Plug>(coc-references)
+nn <silent> K :call <SID>show_documentation()<cr>
+nn <silent> <leader>si :<C-u>CocList outline<cr>
+nmap <silent> <leader>en <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>ep <Plug>(coc-diagnostic-prev)
+nn <silent> ga :<C-u>CocList -I symbols<cr>
+nn <leader>l= :call CocAction('format')<cr>
+nmap <leader>la <Plug>(coc-codeaction)
+nn <silent> <leader>lc :call CocAction('codeLens')<cr>
+nn <leader>le :<C-u>CocList diagnostics<cr>
+nmap <leader>lf <Plug>(coc-fix-current)
+nmap <leader>lr <Plug>(coc-rename)
+ino <expr><tab> pumvisible() ? "\<C-y>" : "\<tab>"
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<S-tab>'
+let g:coc_start_at_startup = 0
+au VimEnter * if getcwd() !~ 'Dev\|llvm\|projects' | let g:coc_start_at_startup=1 | endif
+"let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
+" one-level base
+" bases
+nn <silent> xb :call CocLocations('ccls','$ccls/inheritance')<cr>
+" bases of up to 3 levels
+nn <silent> xb :call CocLocations('ccls','$ccls/inheritance',{'levels':3})<cr>
+" derived of up to 3 levels
+nn <silent> xd :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true})<cr>
+" derived of up to 3 levels
+nn <silent> xD :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true,'levels':3})<cr>
+
+" caller
+nn <silent> xc :call CocLocations('ccls','$ccls/call')<cr>
+" callee
+nn <silent> xC :call CocLocations('ccls','$ccls/call',{'callee':v:true})<cr>
+
+" $ccls/member
+" member variables / variables in a namespace
+nn <silent> xm :call CocLocations('ccls','$ccls/member')<cr>
+" member functions / functions in a namespace
+nn <silent> xf :call CocLocations('ccls','$ccls/member',{'kind':3})<cr>
+" nested classes / types in a namespace
+nn <silent> xs :call CocLocations('ccls','$ccls/member',{'kind':2})<cr>
+
+nmap <silent> xt <Plug>(coc-type-definition)<cr>
+nn <silent> xv :call CocLocations('ccls','$ccls/vars')<cr>
+nn <silent> xV :call CocLocations('ccls','$ccls/vars',{'kind':1})<cr>
+" end coc.nvim
 
 "nerdtree配置========================
 "设置 F2 为NERDTree的快捷键
@@ -114,15 +171,15 @@ nmap <leader>tb :Tagbar<CR>
 "end tagbar
 
 "ycm
-let g:airline#extensions#ycm#enabled = 1
-let g:airline#extensions#ycm#error_symbol = 'E:'
-let g:airline#extensions#ycm#warning_symbol = 'W:'
-let g:ycm_min_num_of_chars_for_completion = 3 
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_complete_in_comments = 1
-let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
-" 比较喜欢用tab来选择补全...
+" let g:airline#extensions#ycm#enabled = 1
+" let g:airline#extensions#ycm#error_symbol = 'E:'
+" let g:airline#extensions#ycm#warning_symbol = 'W:'
+" let g:ycm_min_num_of_chars_for_completion = 3 
+" let g:ycm_autoclose_preview_window_after_completion=1
+" let g:ycm_complete_in_comments = 1
+" let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
+" 比较喜欢用tab来选择补全..., 其他的也支持，不是专门为ycm写的
 function! MyTabFunction ()
     let line = getline('.')
     let substr = strpart(line, -1, col('.')+1)
@@ -235,3 +292,4 @@ nnoremap <leader>4 4gt
 "autocmd FileType cpp nnoremap <buffer> <localleader>c I#<esc>
 "快速复制光标所在的单词
 nnoremap <leader>qy viw"+y
+set cc=80
