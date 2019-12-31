@@ -10,7 +10,7 @@ Plug 'Yggdroot/LeaderF' "文件查找
 Plug 'Chiel92/vim-autoformat' "自动格式化代码
 "Plug 'ctrlpvim/ctrlp.vim' "ctrlp
 " 代码提示
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Markdown预览
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " 运行命令，类似:!<cmd>, 但是会将命令和结果放到一个窗口
@@ -56,10 +56,13 @@ Plug 'yianwillis/vimcdoc'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " 括号优化
 Plug 'luochen1990/rainbow'
+" 快捷键提示
+"Plug 'liuchengxu/vim-which-key', {'on':['WhichKey','WhichKey!']}
 call plug#end()
 
 "设置<leader>
 let mapleader=","
+
 " coc.nvim
 set updatetime=300
 augroup coc_config
@@ -115,6 +118,10 @@ nn <silent> xv :call CocLocations('ccls','$ccls/vars')<cr>
 nn <silent> xV :call CocLocations('ccls','$ccls/vars',{'kind':1})<cr>
 " end coc.nvim
 
+" vim-which-key
+" nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+" set timeoutlen=500
+" end vim-whice-key
 
 " rainbow
 let g:rainbow_active = 1
@@ -170,7 +177,7 @@ noremap <leader>ms :MarkdownPreviewStop<CR>
 
 "deoplete
 "use deoplete
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
 "end deoplete
 
 "tagbar
