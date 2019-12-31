@@ -54,6 +54,8 @@ Plug 'vim-scripts/LargeFile'
 Plug 'yianwillis/vimcdoc'
 " Plug 'neoclide/coc.vim', {'branch': 'release'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" 括号优化
+Plug 'luochen1990/rainbow'
 call plug#end()
 
 "设置<leader>
@@ -112,6 +114,11 @@ nmap <silent> xt <Plug>(coc-type-definition)<cr>
 nn <silent> xv :call CocLocations('ccls','$ccls/vars')<cr>
 nn <silent> xV :call CocLocations('ccls','$ccls/vars',{'kind':1})<cr>
 " end coc.nvim
+
+
+" rainbow
+let g:rainbow_active = 1
+" end rainbow
 
 "nerdtree配置========================
 "设置 F2 为NERDTree的快捷键
