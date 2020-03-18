@@ -10,7 +10,11 @@ Plug 'Yggdroot/LeaderF' "文件查找
 Plug 'Chiel92/vim-autoformat' "自动格式化代码
 "Plug 'ctrlpvim/ctrlp.vim' "ctrlp
 " 代码提示
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/deoplete-clangx'
+Plug 'OmniSharp/omnisharp-vim'
 " Markdown预览
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " 运行命令，类似:!<cmd>, 但是会将命令和结果放到一个窗口
@@ -20,13 +24,15 @@ Plug 'kassio/neoterm'
 Plug 'morhetz/gruvbox'
 "tagbar
 Plug 'majutsushi/tagbar'
+"语法检测
+Plug 'scrooloose/syntastic'
 
-" function! BuildYCM(info)
-"   if a:info.status == 'installed' || a:info.force
-"     !./install.py --clang-completer --js-completer
-"   endif
-" endfunction
-" Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
+function! BuildYCM(info)
+    if a:info.status == 'installed' || a:info.force
+        !./install.py --clang-completer --js-completer
+    endif
+endfunction
+"Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp'], 'do': function('BuildYCM') }
 Plug 'marijnh/tern_for_vim'
 " 注释与反注释插件
 Plug 'scrooloose/nerdcommenter'
@@ -52,7 +58,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'vim-scripts/LargeFile'
 Plug 'yianwillis/vimcdoc'
-" Plug 'neoclide/coc.vim', {'branch': 'release'}
+" 代码提示
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " 括号优化
 Plug 'luochen1990/rainbow'
@@ -66,10 +72,10 @@ let mapleader=","
 " coc.nvim
 set updatetime=300
 augroup coc_config
-  au!
-  "au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  "au CursorHold * sil call CocActionAsync('highlight')
-  "au CursorHoldI * sil call CocActionAsync('showSignatureHelp')
+    au!
+    "au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    "au CursorHold * sil call CocActionAsync('highlight')
+    "au CursorHoldI * sil call CocActionAsync('showSignatureHelp')
 augroup END
 nmap <silent> <M-j> <Plug>(coc-definition)
 nmap <silent> <C-,> <Plug>(coc-references)
@@ -159,10 +165,10 @@ noremap <leader>zf :Files<CR>
 noremap <leader>zb :Buffers<CR>
 "文本搜索,需要the_silver_searcher支持
 command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
+            \ call fzf#vim#ag(<q-args>,
+            \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+            \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+            \                 <bang>0)
 nnoremap <Leader>A :Ag<CR>
 "end fzf配置===================================
 
@@ -177,7 +183,13 @@ noremap <leader>ms :MarkdownPreviewStop<CR>
 
 "deoplete
 "use deoplete
-"let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
+" Change clang binary path
+call deoplete#custom#var('clangx', 'clang_binary', '/usr/local/bin/clang')
+
+" Change clang options
+call deoplete#custom#var('clangx', 'default_c_options', '')
+call deoplete#custom#var('clangx', 'default_cpp_options', '')
 "end deoplete
 
 "tagbar
@@ -188,7 +200,7 @@ nmap <leader>tb :Tagbar<CR>
 " let g:airline#extensions#ycm#enabled = 1
 " let g:airline#extensions#ycm#error_symbol = 'E:'
 " let g:airline#extensions#ycm#warning_symbol = 'W:'
-" let g:ycm_min_num_of_chars_for_completion = 3 
+" let g:ycm_min_num_of_chars_for_completion = 3
 " let g:ycm_autoclose_preview_window_after_completion=1
 " let g:ycm_complete_in_comments = 1
 " let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
@@ -243,48 +255,48 @@ noremap <leader>js <ESC>:%!python3 -m json.tool<CR>
 autocmd BufNewFile *.c,*.cpp,*.sh,*.py,*.java,*.js exec ":call SetTitle()"
 "定义函数SetTitle，自动插入文件头
 func SetTitle()
-        "如果文件类型为.c或者.cpp文件
-        if (&filetype == 'c' || &filetype == 'cpp' || &filetype == 'js')
-                call setline(1, "/*************************************************************************")  
-                call setline(2, "\ @Author: luning")  
-                call setline(3, "\ @Created Time : ".strftime("%c"))  
-                call setline(4, "\ @File Name: ".expand("%"))  
-                call setline(5, "\ @Description:")  
-                call setline(6, " ************************************************************************/")  
-                call setline(7,"")  
-        endif
-        "如果文件类型为.sh文件
-        if &filetype == 'shell'  
-                call setline(1, "\#!/bin/sh")
-                call setline(2, "\# Author: luning")
-                call setline(3, "\# Created Time : ".strftime("%c"))
-                call setline(4, "\# File Name: ".expand("%"))
-                call setline(5, "\# Description:")
-                call setline(6,"")
-        endif
-        "如果文件类型为.py文件
-        if &filetype == 'python'
-                call setline(1, "\#!/usr/bin/env python")
-                call setline(2, "\# -*- coding=utf8 -*-")
-                call setline(3, "\"\"\"")
-                call setline(4, "\# Author: luning")
-                call setline(5, "\# Created Time : ".strftime("%c"))
-                call setline(6, "\# File Name: ".expand("%"))
-                call setline(7, "\# Description:")
-                call setline(8, "\"\"\"")
-                call setline(9,"")
-        endif
-        "如果文件类型为.java文件
-        if &filetype == 'java'  
-                call setline(1, "//coding=utf8")  
-                call setline(2, "/**")  
-                call setline(3, "\ *\ @Author: luning")  
-                call setline(4, "\ *\ @Created Time : ".strftime("%c"))  
-                call setline(5, "\ *\ @File Name: ".expand("%"))  
-                call setline(6, "\ *\ @Description:")  
-                call setline(7, "\ */")  
-                call setline(8,"")  
-        endif
+    "如果文件类型为.c或者.cpp文件
+    if (&filetype == 'c' || &filetype == 'cpp' || &filetype == 'js')
+        call setline(1, "/*************************************************************************")
+        call setline(2, "\ @Author: luning")
+        call setline(3, "\ @Created Time : ".strftime("%c"))
+        call setline(4, "\ @File Name: ".expand("%"))
+        call setline(5, "\ @Description:")
+        call setline(6, " ************************************************************************/")
+        call setline(7,"")
+    endif
+    "如果文件类型为.sh文件
+    if &filetype == 'shell'
+        call setline(1, "\#!/bin/sh")
+        call setline(2, "\# Author: luning")
+        call setline(3, "\# Created Time : ".strftime("%c"))
+        call setline(4, "\# File Name: ".expand("%"))
+        call setline(5, "\# Description:")
+        call setline(6,"")
+    endif
+    "如果文件类型为.py文件
+    if &filetype == 'python'
+        call setline(1, "\#!/usr/bin/env python")
+        call setline(2, "\# -*- coding=utf8 -*-")
+        call setline(3, "\"\"\"")
+        call setline(4, "\# Author: luning")
+        call setline(5, "\# Created Time : ".strftime("%c"))
+        call setline(6, "\# File Name: ".expand("%"))
+        call setline(7, "\# Description:")
+        call setline(8, "\"\"\"")
+        call setline(9,"")
+    endif
+    "如果文件类型为.java文件
+    if &filetype == 'java'
+        call setline(1, "//coding=utf8")
+        call setline(2, "/**")
+        call setline(3, "\ *\ @Author: luning")
+        call setline(4, "\ *\ @Created Time : ".strftime("%c"))
+        call setline(5, "\ *\ @File Name: ".expand("%"))
+        call setline(6, "\ *\ @Description:")
+        call setline(7, "\ */")
+        call setline(8,"")
+    endif
 endfunc
 " 自动将光标移动到文件末尾
 autocmd BufNewfile * normal G
@@ -307,3 +319,35 @@ nnoremap <leader>4 4gt
 "快速复制光标所在的单词
 nnoremap <leader>qy viw"+y
 set cc=80
+
+"高亮特殊标识
+if has("autocmd")
+ " Highlight TODO, FIXME, NOTE, etc.
+ if v:version > 701
+ autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|BUG\|HACK\)')
+ autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|MODIFY\)')
+ endif
+endif
+
+"syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_python_checkers = ['pylint']
+
+"deoplete-clangx 
+" Change clang binary path
+call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
+
+" Change clang options
+call deoplete#custom#var('clangx', 'default_c_options', '')
+call deoplete#custom#var('clangx', 'default_cpp_options', '')
+
+"OmniSharp
+let g:OmniSharp_server_stdio = 1
