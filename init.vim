@@ -340,6 +340,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_python_checkers = ['pylint']
+"end syntastic settings
 
 "deoplete-clangx 
 " Change clang binary path
@@ -348,6 +349,9 @@ call deoplete#custom#var('clangx', 'clang_binary', '/usr/bin/clang')
 " Change clang options
 call deoplete#custom#var('clangx', 'default_c_options', '')
 call deoplete#custom#var('clangx', 'default_cpp_options', '')
+"end deoplete-clangx
 
 "OmniSharp
 let g:OmniSharp_server_stdio = 1
+let g:OmniSharp_server_path = '/Users/tu/self/omnisharp-roslyn/artifacts/publish/OmniSharp.Stdio.Driver/mono/OmniSharp.exe'
+"end OmniSharp
