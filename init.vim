@@ -151,11 +151,17 @@ let g:NERDTreeShowHidden=1
 noremap <leader>nr :NERDTreeRefreshRoot<CR>
 "end nerdtree配置========================
 
-"tabnine 配置==========================
+"airline_theme配置==========================
 "let g:airline_theme="solarized"
 "let g:airline_solarized_bg='dark'
-let g:airline_theme="molokai"
-"end tabnine 配置==========================
+"let g:airline_theme="molokai"
+"let g:airline_theme="badwolf"
+"let g:airline_theme="light"
+"let g:airline_theme="deus"
+"let g:airline_theme="wombat"
+"let g:airline_theme="bubblegum"
+let g:airline_theme="luna"
+"end airline_theme配置==========================
 
 
 "fzf配置===================================
@@ -325,7 +331,7 @@ if has("autocmd")
  " Highlight TODO, FIXME, NOTE, etc.
  if v:version > 701
  autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|BUG\|HACK\)')
- autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|MODIFY\)')
+ autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|MODIFY\|NOTICE\)')
  endif
 endif
 
@@ -338,7 +344,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['jshint']
+"let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ['pylint']
 "end syntastic settings
 
