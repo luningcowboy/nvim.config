@@ -62,6 +62,7 @@ Plug 'yianwillis/vimcdoc'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " 括号优化
 Plug 'luochen1990/rainbow'
+Plug 'lfv89/vim-interestingwords'
 " 快捷键提示
 "Plug 'liuchengxu/vim-which-key', {'on':['WhichKey','WhichKey!']}
 call plug#end()
@@ -330,8 +331,8 @@ set cc=80
 if has("autocmd")
  " Highlight TODO, FIXME, NOTE, etc.
  if v:version > 701
- autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|BUG\|HACK\)')
- autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|MODIFY\|NOTICE\)')
+ autocmd Syntax * call matchadd('Todo', '\W\zs\(TODO\|FIXME\|CHANGED\|BUG\|HACK\|DEPRECATED\)')
+ autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|MODIFY\|NOTICE\|TEST\)')
  endif
 endif
 
@@ -362,3 +363,5 @@ call deoplete#custom#var('clangx', 'default_cpp_options', '')
 let g:OmniSharp_server_stdio = 1
 let g:OmniSharp_server_path = '/Users/tu/self/omnisharp-roslyn/artifacts/publish/OmniSharp.Stdio.Driver/mono/OmniSharp.exe'
 "end OmniSharp
+
+let g:interestingWordsTermColors = ['154', '121', '211', '137', '214', '222']
