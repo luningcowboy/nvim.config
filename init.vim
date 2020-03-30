@@ -65,6 +65,7 @@ Plug 'luochen1990/rainbow'
 Plug 'lfv89/vim-interestingwords'
 " 快捷键提示
 "Plug 'liuchengxu/vim-which-key', {'on':['WhichKey','WhichKey!']}
+Plug 'heavenshell/vim-jsdoc'
 call plug#end()
 
 "设置<leader>
