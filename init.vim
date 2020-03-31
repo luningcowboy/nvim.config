@@ -273,6 +273,16 @@ func SetTitle()
         call setline(6, " ************************************************************************/")
         call setline(7,"")
     endif
+    if(&filetype == 'js')
+        call setline(1, "/**")
+        call setline(2, "\* @file: ".expand("%"))
+        call setline(3, "\* @author: lu ning")
+        call setline(4, "\* @date : ".strftime("%c"))
+        call setline(5, "\* @description: ")
+        call setline(5, "\* @Description:")
+        call setline(6, " */")
+        call setline(7,"")
+    endif
     "如果文件类型为.sh文件
     if &filetype == 'shell'
         call setline(1, "\#!/bin/sh")
@@ -366,3 +376,5 @@ let g:OmniSharp_server_path = '/Users/tu/self/omnisharp-roslyn/artifacts/publish
 "end OmniSharp
 
 let g:interestingWordsTermColors = ['154', '121', '211', '137', '214', '222']
+
+nmap <leader>fd <Plug>(jsdoc)
