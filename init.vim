@@ -329,6 +329,8 @@ nnoremap <leader>1 1gt
 nnoremap <leader>2 2gt
 nnoremap <leader>3 3gt
 nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
 "注释一行
 "Plug 'scrooloose/nerdcommenter' 这个插件已经有这个功能了<leader>cc
 "autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
