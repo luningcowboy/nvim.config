@@ -26,6 +26,10 @@ Plug 'morhetz/gruvbox'
 Plug 'majutsushi/tagbar'
 "语法检测
 Plug 'scrooloose/syntastic'
+"Lua插件
+Plug 'tbastos/vim-lua'
+"Dart插件
+Plug 'dart-lang/dart-vim-plugin'
 
 function! BuildYCM(info)
     if a:info.status == 'installed' || a:info.force
