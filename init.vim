@@ -11,10 +11,11 @@ Plug 'Chiel92/vim-autoformat' "自动格式化代码
 "Plug 'ctrlpvim/ctrlp.vim' "ctrlp
 " 代码提示
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-"Plug 'zchee/deoplete-jedi'
-"Plug 'Shougo/deoplete-clangx'
-"Plug 'OmniSharp/omnisharp-vim'
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/deoplete-clangx'
+Plug 'OmniSharp/omnisharp-vim'
+>>>>>>> c499181bfe51b5880a9ab6d5b58dfa69f6a79944
 " Markdown预览
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " 运行命令，类似:!<cmd>, 但是会将命令和结果放到一个窗口
@@ -406,5 +407,4 @@ let g:ale_sign_warning='⚡'
 let g:interestingWordsTermColors = ['154', '121', '211', '137', '214', '222']
 
 nnoremap tlu = ^2dwk<space>lyjPl<space>$a<space>=<space><esc>p3bv%d:w
-
 nmap <leader>fd <Plug>(jsdoc)
