@@ -394,7 +394,7 @@ let g:syntastic_python_checkers = ['pylint']
 "end deoplete-clangx
 
 "OmniSharp
-"let g:OmniSharp_server_stdio = 1
+let g:OmniSharp_server_stdio = 1
 "let g:OmniSharp_server_path = '/Users/tu/self/omnisharp-roslyn/artifacts/publish/OmniSharp.Stdio.Driver/mono/OmniSharp.exe'
 "end OmniSharp
 
@@ -422,6 +422,7 @@ let g:ale_linters = {
 \   'c': ['clang'],
 \   'python': ['pylint'],
 \   'lua': ['luacheck'],
+\   'cs': ['OmniSharp'],
 \}
 "end ale
 
