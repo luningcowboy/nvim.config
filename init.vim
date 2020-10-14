@@ -72,7 +72,9 @@ Plug 'lfv89/vim-interestingwords'
 " 快捷键提示
 "Plug 'liuchengxu/vim-which-key', {'on':['WhichKey','WhichKey!']}
 Plug 'heavenshell/vim-jsdoc'
+" git相关
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 "Plug 'luzhlon/xmake'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
@@ -80,6 +82,8 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-unimpaired'
 " 异步语法检测
 Plug 'dense-analysis/ale'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 call plug#end()
 
 "设置<leader>
